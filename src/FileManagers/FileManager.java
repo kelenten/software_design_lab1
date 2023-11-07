@@ -34,6 +34,7 @@ public class FileManager {
     public MarkdownFile createNewFile(String name) {
         MarkdownFile newFile = new MarkdownFile(name);
         fileList.add(newFile);
+        this.setTempFile(newFile);
         return newFile;
     }
 

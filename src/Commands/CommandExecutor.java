@@ -26,7 +26,7 @@ public class CommandExecutor {
             case "load":
                 // 打开或创建新文件
                 String fileName = commandStr.replaceFirst("load\\s", "");
-                Load load = new Load(fileName);
+                Load load = new Load(fileName, fileManager);
                 load.execute();
                 saveCommand(load);
                 break;

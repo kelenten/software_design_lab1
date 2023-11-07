@@ -1,10 +1,12 @@
 package Titles;
 
 public abstract class AbstractTitles {
+    public int level;
 
-    protected int level;
+    public String titlesName;
 
-    protected String name;
-
-
+    public AbstractTitles(int level, String titlesName) {
+        this.level = level;
+        this.titlesName = titlesName;
+    }
 }
