@@ -21,9 +21,9 @@ public class MarkdownFile {
         if(!file.exists()){
             try {
                 if(file.createNewFile()) {
-                    System.out.print("文件创建成功");
+                    System.out.println("文件创建成功");
                 } else {
-                    System.out.print("文件创建失败");
+                    System.out.println("文件创建失败");
                 }
 
             } catch (IOException e) {
@@ -31,7 +31,7 @@ public class MarkdownFile {
             }
 
         } else {
-            System.out.print("读取文件:" + fileName);
+            System.out.println("读取文件:" + fileName);
         }
 
     }

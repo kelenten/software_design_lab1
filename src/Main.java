@@ -11,12 +11,13 @@ public class Main {
         System.out.println("Markdown文件编辑器");
         Scanner in = new Scanner(System.in);
 
-        do {
-            System.out.println("请输入指令: ");
+        System.out.println("请输入指令: ");
+        while (in.hasNext()){
             String commandStr = in.nextLine();
             // 对输入命令进行解析
             fileManager.executeCommand(commandStr);
-        } while (in.hasNext());
+            System.out.println("请输入指令: ");
+        }
         in.close();
     }
 }
