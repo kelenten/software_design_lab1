@@ -1,34 +1,22 @@
+import FileManagers.FileManager;
+
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
+        // 唯一的文件管理器
+        FileManager fileManager = FileManager.getInstance();
+
         System.out.println("Markdown文件编辑器");
         Scanner in = new Scanner(System.in);
 
-
-        while (in.hasNext()){
+        do {
             System.out.println("请输入指令: ");
-            String commandStr = in.next();
-            // 使用正则表达式匹配输入的第一个单词
-            String firstWord = commandStr.trim().split("\\s+")[0].toLowerCase();
-
-            switch (firstWord){
-                case "load":;
-                case "save":;
-                case "insert":;
-                case "append-head":;
-                case "append-tail":;
-                case "delete":;
-                case "undo":;
-                case "redo":;
-                case "list":;
-                case "list-tree":;
-                case "dir-tree":;
-                case "history":;
-                case "stats":;
-            }
-        }
+            String commandStr = in.nextLine();
+            // 对输入命令进行解析
+            fileManager.executeCommand(commandStr);
+        } while (in.hasNext());
         in.close();
     }
 }
