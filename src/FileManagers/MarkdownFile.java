@@ -1,29 +1,22 @@
 package FileManagers;
 
-import Titles.Titles;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MarkdownFile {
     // 文件名
-    String fileName;
+    public String fileName;
 
     // 文件对象
-    File file;
+    public File file;
 
     // 文件内容
-    String context;
-
-
+    public List<String> content;
 
     public MarkdownFile(String fileName) {
         this.fileName = fileName;
-        this.context = "";
+        this.content = new ArrayList<>();
         file = new File(fileName);
         if(!file.exists()){
             try {
@@ -41,14 +34,24 @@ public class MarkdownFile {
             System.out.println("读取文件:" + fileName);
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 String line;
-                StringBuilder content = new StringBuilder();
                 while ((line = reader.readLine()) != null) {
-                    content.append(line).append("\n");
+                    content.add(line);
                 }
-                this.context = content.toString();
             } catch (IOException e) {
                 e.getStackTrace();
             }
+        }
+    }
+
+    public void save(){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.file))) {
+            for (String line:
+                 this.content) {
+                writer.write(line + "\n");
+            }
+            System.out.println("内容已成功写入文件");
+        } catch (IOException e) {
+            e.getStackTrace();
         }
     }
 }

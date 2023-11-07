@@ -5,9 +5,9 @@ import FileManagers.FileManager;
 import java.io.File;
 
 public class Load implements Command{
-    String fileName;
+    private String fileName;
 
-    FileManager fileManager;
+    private FileManager fileManager;
 
 
     public Load(String fileName,FileManager fileManager) {
