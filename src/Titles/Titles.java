@@ -9,8 +9,8 @@ public class Titles extends AbstractTitles{
 
     public List<AbstractTitles> children;
 
-    public Titles(int level, String titlesName) {
-        super(level, titlesName);
+    public Titles(int line, String titlesName) {
+        super(line, titlesName);
         this.children = new ArrayList<>();
     }
 }

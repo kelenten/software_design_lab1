@@ -5,4 +5,9 @@ public class Save implements Command{
     public void execute() {
         System.out.print("保存成功");
     }
+
+    @Override
+    public void undo() {
+
+    }
 }

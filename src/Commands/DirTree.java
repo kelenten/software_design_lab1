@@ -5,4 +5,9 @@ public class DirTree implements Command{
     public void execute() {
 
     }
+
+    @Override
+    public void undo() {
+
+    }
 }

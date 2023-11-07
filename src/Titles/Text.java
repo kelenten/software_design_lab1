@@ -3,8 +3,8 @@ package Titles;
 public class Text extends AbstractTitles{
     public String type;
 
-    public Text(int level, String titlesName, String type) {
-        super(level, titlesName);
+    public Text(int line, String titlesName, String type) {
+        super(line, titlesName);
         this.type = type;
     }
 }

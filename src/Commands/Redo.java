@@ -5,4 +5,9 @@ public class Redo implements Command{
     public void execute() {
 
     }
+
+    @Override
+    public void undo() {
+
+    }
 }

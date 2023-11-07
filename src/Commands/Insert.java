@@ -5,4 +5,9 @@ public class Insert implements Command{
     public void execute() {
 
     }
+
+    @Override
+    public void undo() {
+
+    }
 }

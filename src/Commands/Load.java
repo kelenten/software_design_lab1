@@ -21,4 +21,9 @@ public class Load implements Command{
 
         fileManager.createNewFile(fileName);
     }
+
+    @Override
+    public void undo() {
+
+    }
 }
