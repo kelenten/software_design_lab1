@@ -18,4 +18,6 @@ public abstract class Nodes {
     public abstract void listTree(int blank, boolean lastNode);
 
     public abstract CompositeNodes getFather(int level);
+
+    public abstract Nodes getChild(String Name);
 }

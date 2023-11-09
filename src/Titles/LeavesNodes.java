@@ -37,4 +37,9 @@ public class LeavesNodes extends Nodes {
             return null;
         }
     }
+
+    @Override
+    public Nodes getChild(String Name) {
+        return null;
+    }
 }

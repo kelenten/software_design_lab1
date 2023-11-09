@@ -47,4 +47,20 @@ public class CompositeNodes extends Nodes {
             return father.getFather(level);
         }
     }
+
+    @Override
+    public Nodes getChild(String name) {
+        Nodes temp = null;
+        for (Nodes child:
+             children) {
+            if(temp == null){
+                if(child.titlesName.equals(name)){
+                    temp = child;
+                } else {
+                    temp = child.getChild(name);
+                }
+            }
+        }
+        return temp;
+    }
 }

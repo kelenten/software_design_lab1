@@ -119,6 +119,9 @@ public class CommandExecutor {
                 if(matcher.find()){
                     titlesName = matcher.group(1);
                 }
+                DirTree dirTree = new DirTree(fileManager, titlesName);
+                dirTree.execute();
+                saveCommand(dirTree);
                 break;
             case "history":
                 pattern = Pattern.compile("^history\\s(.*)");

@@ -65,6 +65,10 @@ public class FileManager {
         this.tempFile.listTree();
     }
 
+    public void dirTree(String titleName){
+        this.tempFile.dirTree(titleName);
+    }
+
     public void attachObserver(Observer observer) {
         this.observerList.add(observer);
     }

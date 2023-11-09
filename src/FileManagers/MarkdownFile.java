@@ -17,9 +17,12 @@ public class MarkdownFile {
 
     // 文件内容
     public List<String> content;
+
+    public CompositeNodes rootTitle;
     public MarkdownFile(String fileName) {
         this.fileName = fileName;
         this.content = new ArrayList<>();
+        this.rootTitle = null;
         file = new File(fileName);
         if(!file.exists()){
             try {
@@ -83,7 +86,7 @@ public class MarkdownFile {
         }
     }
 
-    public void listTree(){
+    public CompositeNodes getTree(){
         CompositeNodes rootTitle = new CompositeNodes(0, "this is root", null);
         Pattern pattern1 = Pattern.compile("^(#+)\\s(.+)");
         Pattern pattern2 = Pattern.compile("^(\\d\\.)\\s(.+)");
@@ -91,7 +94,7 @@ public class MarkdownFile {
         int tempLevel = 0;
         CompositeNodes tempTitle = rootTitle;
         for (String line:
-             this.content) {
+                this.content) {
             Matcher matcher1 = pattern1.matcher(line);
             Matcher matcher2 = pattern2.matcher(line);
             Matcher matcher3 = pattern3.matcher(line);
@@ -121,10 +124,21 @@ public class MarkdownFile {
                 tempTitle.children.add(temp);
             }
         }
+        return rootTitle;
+    }
+
+    public void listTree(){
+        this.rootTitle = this.getTree();
         List<Nodes> children = rootTitle.children;
         for (Nodes child:
                 children) {
             child.listTree(0, children.indexOf(child) == children.size() - 1);
         }
+    }
+
+    public void dirTree(String titleName){
+        this.rootTitle = this.getTree();
+        Nodes temp = this.rootTitle.getChild(titleName);
+        temp.listTree(temp.level - 1, true);
     }
 }
