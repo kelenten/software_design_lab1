@@ -49,6 +49,22 @@ public class FileManager {
         this.tempFile.save();
     }
 
+    public void insert(int line, String titleName){
+        tempFile.insert(line, titleName);
+    }
+
+    public  void delete(int line,String titleName){
+        tempFile.delete(line, titleName);
+    }
+
+    public  void listFile(){
+        this.tempFile.list();
+    }
+
+    public void listTree(){
+        this.tempFile.listTree();
+    }
+
     public void attachObserver(Observer observer) {
         this.observerList.add(observer);
     }

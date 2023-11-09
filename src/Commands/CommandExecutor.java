@@ -41,7 +41,7 @@ public class CommandExecutor {
             case "insert":
                 // 在指定⾏插⼊标题或⽂本。如果不指定⾏号，则默认在⽂件的最后⼀⾏插⼊内容。
                 pattern = Pattern.compile("^insert\\s(\\w+)\\s(.*)");
-                Pattern pattern2 = Pattern.compile("^insert\\s(\\w)");
+                Pattern pattern2 = Pattern.compile("^insert\\s(.*)");
                 matcher = pattern.matcher(commandStr);
                 Matcher matcher2 = pattern2.matcher(commandStr);
                 Insert insert = null;
@@ -84,14 +84,16 @@ public class CommandExecutor {
             case "delete":
                 pattern = Pattern.compile("^(delete\\s)(.*)");
                 matcher = pattern.matcher(commandStr);
+                Delete delete = null;
                 if(matcher.find()){
                     try {
                         line = Integer.parseInt(matcher.group(2));
+                        delete = new Delete(fileManager, line);
                     } catch (NumberFormatException e) {
                         titlesName = matcher.group(2);
+                        delete = new Delete(fileManager, titlesName);
                     }
                 }
-                Delete delete = new Delete();
                 delete.execute();
                 saveCommand(delete);
                 break;
@@ -102,12 +104,12 @@ public class CommandExecutor {
                 Redo redo = new Redo();
                 break;
             case "list":
-                List list = new List();
+                List list = new List(fileManager);
                 list.execute();
                 saveCommand(list);
                 break;
             case "list-tree":
-                ListTree listTree = new ListTree();
+                ListTree listTree = new ListTree(fileManager);
                 listTree.execute();
                 saveCommand(listTree);
                 break;
@@ -127,6 +129,8 @@ public class CommandExecutor {
                 break;
             case "stats":
                 break;
+            case "exit":
+                System.exit(0);
         }
     }
 
