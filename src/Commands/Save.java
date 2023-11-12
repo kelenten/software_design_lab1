@@ -2,7 +2,7 @@ package Commands;
 
 import FileManagers.FileManager;
 
-public class Save implements Command{
+public class Save implements ICommand {
 
     private FileManager fileManager;
 
@@ -13,7 +13,6 @@ public class Save implements Command{
     @Override
     public void execute() {
         fileManager.save();
-        System.out.print("保存成功");
     }
 
     @Override

@@ -1,9 +1,8 @@
 package Commands;
 
 import FileManagers.FileManager;
-import Models.List.ConcreteListModel;
 
-public class List implements Command{
+public class List implements ICommand {
     FileManager fileManager;
 
     public List(FileManager fileManager) {
@@ -12,7 +11,7 @@ public class List implements Command{
 
     @Override
     public void execute() {
-        ConcreteListModel.list(fileManager);
+        fileManager.listFile();
     }
 
     @Override

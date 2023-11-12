@@ -2,10 +2,9 @@ package Commands;
 
 import FileManagers.FileManager;
 import Models.Insert.InsertModel;
+import Models.delete.DeleteModel;
 
-import java.io.File;
-
-public class Insert implements Command{
+public class Insert implements ICommand {
 
     private FileManager fileManager;
 
@@ -21,7 +20,6 @@ public class Insert implements Command{
 
     public Insert(FileManager fileManager, String titleName) {
         this.fileManager = fileManager;
-        this.line = -1;
         this.titleName = titleName;
     }
 
@@ -31,8 +29,12 @@ public class Insert implements Command{
         InsertModel.insert(fileManager,line,titleName);
     }
 
+    public void execute2(){
+        this.line = InsertModel.insertTail(fileManager, titleName);
+    }
+
     @Override
     public void undo() {
-
+        DeleteModel.deleteByLine(fileManager, this.line);
     }
 }

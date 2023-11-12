@@ -2,8 +2,9 @@ package Commands;
 
 import FileManagers.FileManager;
 import Models.Insert.InsertModel;
+import Models.delete.DeleteModel;
 
-public class AppendHead implements Command{
+public class AppendHead implements ICommand {
 
     private FileManager fileManager;
 
@@ -21,6 +22,6 @@ public class AppendHead implements Command{
 
     @Override
     public void undo() {
-
+        DeleteModel.deleteByLine(fileManager ,1);
     }
 }

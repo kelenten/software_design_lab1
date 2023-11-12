@@ -1,11 +1,8 @@
 package Commands;
 
 import FileManagers.FileManager;
-import Models.List.ConcreteTree;
 
-import java.io.File;
-
-public class DirTree implements Command{
+public class DirTree implements ICommand {
 
     FileManager fileManager;
 
@@ -18,7 +15,7 @@ public class DirTree implements Command{
 
     @Override
     public void execute() {
-        ConcreteTree.dirTree(fileManager, titleName);
+        fileManager.dirTree(titleName);
     }
 
     @Override

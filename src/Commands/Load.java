@@ -2,9 +2,7 @@ package Commands;
 
 import FileManagers.FileManager;
 
-import java.io.File;
-
-public class Load implements Command{
+public class Load implements ICommand {
     private String fileName;
 
     private FileManager fileManager;
@@ -17,8 +15,6 @@ public class Load implements Command{
 
     @Override
     public void execute() {
-        System.out.println("创建工作文件:" + this.fileName);
-
         fileManager.createNewFile(fileName);
     }
 

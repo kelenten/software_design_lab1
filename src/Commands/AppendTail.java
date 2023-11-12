@@ -2,10 +2,13 @@ package Commands;
 
 import FileManagers.FileManager;
 import Models.Insert.InsertModel;
+import Models.delete.DeleteModel;
 
-public class AppendTail implements Command{
+public class AppendTail implements ICommand {
 
     private FileManager fileManager;
+
+    private int line;
 
     private String titleName;
 
@@ -16,11 +19,11 @@ public class AppendTail implements Command{
 
     @Override
     public void execute() {
-        InsertModel.insert(fileManager, -1, titleName);
+        this.line = InsertModel.insertTail(fileManager, titleName);
     }
 
     @Override
     public void undo() {
-
+        DeleteModel.deleteByLine(fileManager, this.line);
     }
 }

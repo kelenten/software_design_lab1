@@ -1,12 +1,8 @@
 package Commands;
 
 import FileManagers.FileManager;
-import Models.List.ConcreteListModel;
-import Models.List.ConcreteTree;
 
-import java.io.File;
-
-public class ListTree implements Command{
+public class ListTree implements ICommand {
 
     FileManager fileManager;
 
@@ -16,7 +12,7 @@ public class ListTree implements Command{
 
     @Override
     public void execute() {
-        ConcreteTree.listTree(fileManager);
+        fileManager.listTree();
     }
 
     @Override

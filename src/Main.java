@@ -1,4 +1,6 @@
 import FileManagers.FileManager;
+import Observers.LogObserver;
+import Observers.SessionObserver;
 
 import java.util.Scanner;
 
@@ -7,6 +9,13 @@ public class Main {
     public static void main(String[] args) {
         // 唯一的文件管理器
         FileManager fileManager = FileManager.getInstance();
+
+        // 创建Observers
+        LogObserver logObserver = new LogObserver();
+        SessionObserver sessionObserver = new SessionObserver();
+
+        fileManager.attachLogObserver(logObserver);
+        fileManager.attachSessionObserver(sessionObserver);
 
         System.out.println("Markdown文件编辑器");
         Scanner in = new Scanner(System.in);

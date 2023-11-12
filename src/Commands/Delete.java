@@ -1,8 +1,10 @@
 package Commands;
 
 import FileManagers.FileManager;
+import Models.Insert.InsertModel;
+import Models.delete.DeleteModel;
 
-public class Delete implements Command{
+public class Delete implements ICommand {
 
     FileManager fileManager;
 
@@ -24,11 +26,15 @@ public class Delete implements Command{
 
     @Override
     public void execute() {
-        fileManager.delete(line, titleName);
+        this.titleName = DeleteModel.deleteByLine(fileManager, line);
+    }
+
+    public void execute2(){
+       this.line = DeleteModel.deleteByName(fileManager, titleName);
     }
 
     @Override
     public void undo() {
-
+        InsertModel.insert(fileManager, line, titleName);
     }
 }

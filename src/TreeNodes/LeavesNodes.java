@@ -1,4 +1,4 @@
-package Titles;
+package TreeNodes;
 
 public class LeavesNodes extends Nodes {
     public TextType type;
@@ -22,7 +22,7 @@ public class LeavesNodes extends Nodes {
         } else {
             System.out.print("├── ");
         }
-        if(type == TextType.UNORDEREDLIST){
+        if(type == TextType.UNORDERED_LIST){
             System.out.print("·" + titlesName + "\n");
         } else {
             System.out.print(titlesName + "\n");

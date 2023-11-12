@@ -1,24 +1,26 @@
 package FileManagers;
 
-import Titles.*;
+import TreeNodes.*;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MarkdownFile {
     // 文件名
-    public String fileName;
+    private String fileName;
 
     // 文件对象
-    public File file;
+    private File file;
 
     // 文件内容
-    public List<String> content;
+    private List<String> content;
 
-    public CompositeNodes rootTitle;
+    private CompositeNodes rootTitle;
+
     public MarkdownFile(String fileName) {
         this.fileName = fileName;
         this.content = new ArrayList<>();
@@ -26,18 +28,13 @@ public class MarkdownFile {
         file = new File(fileName);
         if(!file.exists()){
             try {
-                if(file.createNewFile()) {
-                    System.out.println("文件创建成功");
-                } else {
-                    System.out.println("文件创建失败");
-                }
+                file.createNewFile();
 
             } catch (IOException e) {
                 e.getStackTrace();
             }
 
         } else {
-            System.out.println("读取文件:" + fileName);
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
@@ -50,32 +47,42 @@ public class MarkdownFile {
     }
 
     public void save(){
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.file))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.file, false))) {
             for (String line:
                  this.content) {
                 writer.write(line + "\n");
             }
-            System.out.println("内容已成功写入文件");
         } catch (IOException e) {
             e.getStackTrace();
         }
     }
 
     public void insert(int line, String titleName){
-        if(line == -1) {
-            content.add(titleName);
-        } else {
-            content.add((line -1), titleName);
-        }
+        content.add((line -1), titleName);
     }
 
-    public void delete(int line, String titleName){
-        if (line == -1){
-            content.removeIf(str -> str.equals(titleName));
-        } else {
-            content.remove(line - 1);
-        }
+    public int insertTail(String titleName){
+        content.add(titleName);
+        return content.indexOf(titleName) + 1;
+    }
 
+    public String deleteByLine(int line){
+        String name = content.get(line - 1);
+        content.remove(name);
+        return name;
+    }
+
+    public int deleteByName(String name){
+        int line = -1;
+        Iterator<String> iterator = this.content.iterator();
+        while (iterator.hasNext()) {
+            String str = iterator.next();
+            if (str.split("\\s")[1].equals(name)) {
+                line = this.content.indexOf(str) + 1;
+                iterator.remove();
+            }
+        }
+        return line;
     }
 
     public void list(){
@@ -90,7 +97,7 @@ public class MarkdownFile {
         CompositeNodes rootTitle = new CompositeNodes(0, "this is root", null);
         Pattern pattern1 = Pattern.compile("^(#+)\\s(.+)");
         Pattern pattern2 = Pattern.compile("^(\\d\\.)\\s(.+)");
-        Pattern pattern3 = Pattern.compile("^([\\*\\+-])\\s(.+)");
+        Pattern pattern3 = Pattern.compile("^([*+-])\\s(.+)");
         int tempLevel = 0;
         CompositeNodes tempTitle = rootTitle;
         for (String line:
@@ -115,12 +122,12 @@ public class MarkdownFile {
                 tempLevel = temp.level;
             } else if(matcher3.matches()){
                 lineContent = matcher3.group(2);
-                LeavesNodes temp = new LeavesNodes(tempLevel + 1, lineContent, tempTitle, TextType.UNORDEREDLIST);
+                LeavesNodes temp = new LeavesNodes(tempLevel + 1, lineContent, tempTitle, TextType.UNORDERED_LIST);
                 tempTitle.children.add(temp);
 
             } else if(matcher2.matches()){
                 lineContent = line;
-                LeavesNodes temp = new LeavesNodes(tempLevel + 1, lineContent, tempTitle, TextType.ORDEREDLIST);
+                LeavesNodes temp = new LeavesNodes(tempLevel + 1, lineContent, tempTitle, TextType.ORDERED_LIST);
                 tempTitle.children.add(temp);
             }
         }

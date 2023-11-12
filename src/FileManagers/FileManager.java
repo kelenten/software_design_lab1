@@ -1,7 +1,8 @@
 package FileManagers;
 
 import Commands.CommandExecutor;
-import Observers.Observer;
+import Observers.LogObserver;
+import Observers.SessionObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,32 +10,28 @@ import java.util.List;
 public class FileManager {
     public static FileManager instance;  // FileManager单一实例
 
-    public List<MarkdownFile> fileList;  // 编辑的文件列表
+    private List<MarkdownFile> fileList;  // 编辑的文件列表
 
-    public MarkdownFile tempFile;  // 当前编辑的文件
+    private MarkdownFile tempFile;  // 当前编辑的文件
 
-    public CommandExecutor commandExecutor; // 命令解析器
-
-    public List<Observer> observerList; // Observer集合
+    private CommandExecutor commandExecutor; // 命令解析器
 
     private FileManager() {
         this.fileList = new ArrayList<>();
-        this.observerList = new ArrayList<>();
         this.commandExecutor = new CommandExecutor();
     }
 
-    public static FileManager getInstance(){
+    public synchronized static FileManager getInstance(){
         if (instance == null) {
             instance = new FileManager();
         }
         return instance;
     }
 
-    public MarkdownFile createNewFile(String name) {
+    public void createNewFile(String name) {
         MarkdownFile newFile = new MarkdownFile(name);
         fileList.add(newFile);
         this.setTempFile(newFile);
-        return newFile;
     }
 
     public void setTempFile(MarkdownFile tempFile) {
@@ -53,8 +50,16 @@ public class FileManager {
         tempFile.insert(line, titleName);
     }
 
-    public  void delete(int line,String titleName){
-        tempFile.delete(line, titleName);
+    public int insertTail(String titleName){
+        return tempFile.insertTail(titleName);
+    }
+
+    public String deleteByLine(int line){
+        return tempFile.deleteByLine(line);
+    }
+
+    public int deleteByName(String titleName){
+        return tempFile.deleteByName(titleName);
     }
 
     public  void listFile(){
@@ -69,11 +74,11 @@ public class FileManager {
         this.tempFile.dirTree(titleName);
     }
 
-    public void attachObserver(Observer observer) {
-        this.observerList.add(observer);
+    public void attachLogObserver(LogObserver observer){
+        this.commandExecutor.attachLogObserver(observer);
     }
 
-    public  void detachObserver (Observer observer) {
-        this.observerList.remove(observer);
+    public void attachSessionObserver(SessionObserver observer){
+        this.commandExecutor.attachSessionObserver(observer);
     }
 }
