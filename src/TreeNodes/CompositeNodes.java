@@ -15,27 +15,12 @@ public class CompositeNodes extends Nodes {
     }
 
     @Override
-    public void listTree(int blank, boolean lastNode) {
-        for (int i = 0; i < blank; i++) {
-            System.out.print("    ");
-        }
-        for (int i = 0; i < level - blank - 1; i++) {
-            System.out.print("|   ");
-        }
-        if(lastNode){
-            blank = this.level;
-            System.out.print("└── ");
-        } else {
-            System.out.print("├── ");
-        }
+    public void listTree(List<Integer> pipe, boolean lastNode) {
+        outputPrefix(pipe, lastNode);
         System.out.print(titlesName + "\n");
         for (Nodes child:
              children) {
-            if(children.indexOf(child) == children.size() - 1){
-                child.listTree(blank, true);
-            } else {
-                child.listTree(blank, false);
-            }
+            child.listTree(pipe, children.indexOf(child) == children.size() - 1);
         }
     }
 

@@ -30,7 +30,9 @@ public class Delete implements ICommand {
     }
 
     public void execute2(){
-       this.line = DeleteModel.deleteByName(fileManager, titleName);
+        String[] result = DeleteModel.deleteByName(fileManager, titleName);
+        this.line = Integer.parseInt(result[1]);
+        this.titleName = result[0];
     }
 
     @Override

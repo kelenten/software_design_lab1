@@ -1,5 +1,7 @@
 package TreeNodes;
 
+import java.util.List;
+
 public class LeavesNodes extends Nodes {
     public TextType type;
 
@@ -9,19 +11,8 @@ public class LeavesNodes extends Nodes {
     }
 
     @Override
-    public void listTree(int blank, boolean lastNode) {
-        for (int i = 0; i < blank; i++) {
-            System.out.print("    ");
-        }
-        for (int i = 0; i < level - blank - 1; i++) {
-            System.out.print("|   ");
-        }
-        if(lastNode){
-            blank = this.level;
-            System.out.print("└── ");
-        } else {
-            System.out.print("├── ");
-        }
+    public void listTree(List<Integer> pipe, boolean lastNode) {
+        outputPrefix(pipe, lastNode);
         if(type == TextType.UNORDERED_LIST){
             System.out.print("·" + titlesName + "\n");
         } else {

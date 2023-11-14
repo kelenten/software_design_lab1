@@ -58,7 +58,7 @@ public class FileManager {
         return tempFile.deleteByLine(line);
     }
 
-    public int deleteByName(String titleName){
+    public String[] deleteByName(String titleName){
         return tempFile.deleteByName(titleName);
     }
 

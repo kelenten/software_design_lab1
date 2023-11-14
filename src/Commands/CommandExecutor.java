@@ -118,12 +118,10 @@ public class CommandExecutor {
             case "list":
                 List list = new List(fileManager);
                 list.execute();
-                saveCommand(list);
                 break;
             case "list-tree":
                 ListTree listTree = new ListTree(fileManager);
                 listTree.execute();
-                saveCommand(listTree);
                 break;
             case "dir-tree":
                 pattern = Pattern.compile("^dir-tree\\s(.*)");
@@ -133,7 +131,6 @@ public class CommandExecutor {
                 }
                 DirTree dirTree = new DirTree(fileManager, titlesName);
                 dirTree.execute();
-                saveCommand(dirTree);
                 break;
             case "history":
                 pattern = Pattern.compile("^history\\s(.*)");
@@ -144,7 +141,6 @@ public class CommandExecutor {
                 }
                 History history = new History(num, logObserver);
                 history.execute();
-                saveCommand(history);
                 break;
             case "stats":
                 String secondWord = commandStr.trim().split("\\s+")[1].toLowerCase();
@@ -156,7 +152,6 @@ public class CommandExecutor {
                     states = new States(false, sessionObserver);
                     states.execute();
                 }
-                saveCommand(states);
                 break;
             case "exit":
                 updateSession("");

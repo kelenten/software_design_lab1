@@ -17,13 +17,15 @@ public class MarkdownFile {
     private File file;
 
     // 文件内容
-    private List<String> content;
+    private List<String> content2;
+
+    private List<Titles> content;
 
     private CompositeNodes rootTitle;
 
     public MarkdownFile(String fileName) {
         this.fileName = fileName;
-        this.content = new ArrayList<>();
+        this.content2 = new ArrayList<>();
         this.rootTitle = null;
         file = new File(fileName);
         if(!file.exists()){
@@ -38,7 +40,7 @@ public class MarkdownFile {
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    content.add(line);
+                    content2.add(line);
                 }
             } catch (IOException e) {
                 e.getStackTrace();
@@ -49,7 +51,7 @@ public class MarkdownFile {
     public void save(){
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.file, false))) {
             for (String line:
-                 this.content) {
+                 this.content2) {
                 writer.write(line + "\n");
             }
         } catch (IOException e) {
@@ -58,37 +60,38 @@ public class MarkdownFile {
     }
 
     public void insert(int line, String titleName){
-        content.add((line -1), titleName);
+        content2.add((line -1), titleName);
     }
 
     public int insertTail(String titleName){
-        content.add(titleName);
-        return content.indexOf(titleName) + 1;
+        content2.add(titleName);
+        return content2.indexOf(titleName) + 1;
     }
 
     public String deleteByLine(int line){
-        String name = content.get(line - 1);
-        content.remove(name);
+        String name = content2.get(line - 1);
+        content2.remove(name);
         return name;
     }
 
-    public int deleteByName(String name){
-        int line = -1;
-        Iterator<String> iterator = this.content.iterator();
+    public String[] deleteByName(String name){
+        String[] result = new String[2];
+        Iterator<String> iterator = this.content2.iterator();
         while (iterator.hasNext()) {
             String str = iterator.next();
             if (str.split("\\s")[1].equals(name)) {
-                line = this.content.indexOf(str) + 1;
+                result[0] = str;
+                result[1] = this.content2.indexOf(str) + 1 + "";
                 iterator.remove();
             }
         }
-        return line;
+        return result;
     }
 
     public void list(){
         System.out.println("文件:" + this.fileName);
         for (String line:
-             this.content) {
+             this.content2) {
             System.out.println(line);
         }
     }
@@ -101,7 +104,7 @@ public class MarkdownFile {
         int tempLevel = 0;
         CompositeNodes tempTitle = rootTitle;
         for (String line:
-                this.content) {
+                this.content2) {
             Matcher matcher1 = pattern1.matcher(line);
             Matcher matcher2 = pattern2.matcher(line);
             Matcher matcher3 = pattern3.matcher(line);
@@ -139,13 +142,13 @@ public class MarkdownFile {
         List<Nodes> children = rootTitle.children;
         for (Nodes child:
                 children) {
-            child.listTree(0, children.indexOf(child) == children.size() - 1);
+            child.listTree(new ArrayList<>(), children.indexOf(child) == children.size() - 1);
         }
     }
 
     public void dirTree(String titleName){
         this.rootTitle = this.getTree();
         Nodes temp = this.rootTitle.getChild(titleName);
-        temp.listTree(temp.level - 1, true);
+        temp.listTree(new ArrayList<>(), true);
     }
 }

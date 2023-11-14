@@ -7,7 +7,7 @@ public class DeleteModel {
         return fileManager.deleteByLine(line);
     }
 
-    public static int deleteByName(FileManager fileManager, String name){
+    public static String[] deleteByName(FileManager fileManager, String name){
         return fileManager.deleteByName(name);
     }
 }
