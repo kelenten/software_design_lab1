@@ -7,7 +7,7 @@ import java.util.List;
 public class CompositeNodes extends Nodes {
 
 
-    public List<Nodes> children;
+    private List<Nodes> children;
 
     public CompositeNodes(int level, String titlesName, CompositeNodes father) {
         super(level, titlesName, father);
@@ -47,5 +47,9 @@ public class CompositeNodes extends Nodes {
             }
         }
         return temp;
+    }
+
+    public List<Nodes> getChildren() {
+        return children;
     }
 }

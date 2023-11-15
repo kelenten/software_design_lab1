@@ -32,6 +32,7 @@ public class SessionObserver implements IObserver {
             long hours = duration.toHours();
             long minutes = duration.toMinutes() % 60;
             String content = "./" + this.filePath + " " + hours + " 小时 " + minutes + " 分钟";
+            ObserverUtils.log(SESSION_FILE_PATH, content);
             this.content.add(content);
             this.filePath = filePath;
             startTime = LocalDateTime.now();

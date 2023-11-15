@@ -3,7 +3,7 @@ package TreeNodes;
 import java.util.List;
 
 public class LeavesNodes extends Nodes {
-    public TextType type;
+    private TextType type;
 
     public LeavesNodes(int level, String titlesName, CompositeNodes father, TextType type) {
         super(level, titlesName, father);

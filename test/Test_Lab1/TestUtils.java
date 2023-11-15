@@ -1,3 +1,5 @@
+package Test_Lab1;
+
 import FileManagers.FileManager;
 import Observers.LogObserver;
 import Observers.SessionObserver;

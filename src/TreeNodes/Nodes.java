@@ -4,12 +4,12 @@ import java.util.List;
 
 public abstract class Nodes {
     // 层级
-    public int level;
+    protected int level;
 
     // 名称
-    public String titlesName;
+    protected String titlesName;
 
-    public CompositeNodes father;
+    protected CompositeNodes father;
 
     public Nodes(int level, String titlesName, CompositeNodes father) {
         this.level = level;
@@ -19,9 +19,9 @@ public abstract class Nodes {
 
     public abstract void listTree(List<Integer> pipe, boolean lastNode);
 
-    public abstract CompositeNodes getFather(int level);
+    protected abstract CompositeNodes getFather(int level);
 
-    public abstract Nodes getChild(String Name);
+    protected abstract Nodes getChild(String Name);
 
     protected void outputPrefix(List<Integer> pipe, boolean lastNode){
         int index = this.level - 1;
@@ -41,5 +41,9 @@ public abstract class Nodes {
             pipe.add(index);
             System.out.print("├── ");
         }
+    }
+
+    public int getLevel() {
+        return level;
     }
 }

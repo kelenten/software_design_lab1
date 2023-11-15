@@ -70,10 +70,10 @@ public class CommandExecutor {
                 break;
             case "append-head":
                 // 在⽂件起始位置插⼊标题或⽂本。
-                pattern = Pattern.compile("^(append-head\\s)(.*)");
+                pattern = Pattern.compile("^append-head\\s(.*)");
                 matcher = pattern.matcher(commandStr);
                 if(matcher.find()) {
-                    titlesName = matcher.group(2);
+                    titlesName = matcher.group(1);
                 }
                 AppendHead appendHead = new AppendHead(fileManager, titlesName);
                 appendHead.execute();
@@ -81,10 +81,10 @@ public class CommandExecutor {
                 break;
             case "append-tail":
                 // 在⽂件最后⼀⾏插⼊标题或⽂本。
-                pattern = Pattern.compile("^(append-tail\\s)(.*)");
+                pattern = Pattern.compile("^append-tail\\s(.*)");
                 matcher = pattern.matcher(commandStr);
                 if(matcher.find()){
-                    titlesName = matcher.group(2);
+                    titlesName = matcher.group(1);
                 }
                 AppendTail appendTail = new AppendTail(fileManager, titlesName);
                 appendTail.execute();
@@ -143,7 +143,7 @@ public class CommandExecutor {
                 history.execute();
                 break;
             case "stats":
-                String secondWord = commandStr.trim().split("\\s+")[1].toLowerCase();
+                String secondWord = commandStr.trim().split("\\s")[1].toLowerCase();
                 States states = null;
                 if(secondWord.equals("all")){
                     states = new States(true, sessionObserver);
@@ -153,9 +153,28 @@ public class CommandExecutor {
                     states.execute();
                 }
                 break;
+            case "list-workspace":
+                List_workspace listWorkspace = new List_workspace(fileManager);
+                listWorkspace.execute();
+                break;
+            case "open":
+                pattern = Pattern.compile("^open\\s(.*)");
+                matcher = pattern.matcher(commandStr);
+                if(matcher.find()){
+                    titlesName = matcher.group(1);
+                }
+                Open open = new Open(titlesName, fileManager);
+                open.execute();
+                break;
+            case "close":
+                Close close = new Close(fileManager);
+                close.execute();
+                break;
             case "exit":
                 updateSession("");
-                System.exit(0);
+                Exit exit = new Exit(fileManager);
+                exit.execute();
+                break;
         }
     }
 

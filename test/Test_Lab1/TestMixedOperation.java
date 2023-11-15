@@ -1,3 +1,5 @@
+package Test_Lab1;
+
 import org.junit.Test;
 
 import java.io.File;

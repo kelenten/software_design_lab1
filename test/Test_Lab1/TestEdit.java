@@ -1,3 +1,5 @@
+package Test_Lab1;
+
 import org.junit.Test;
 
 import java.io.File;
@@ -9,7 +11,7 @@ public class TestEdit {
     @Test
     public void testEdit(){
         new File("test1.md").delete();
-        String[] inputList = getInputList();
+        String[] inputList = getInputList1();
         // 唯一的文件管理器
         String output = TestUtils.getOutput(inputList);
 
@@ -32,7 +34,7 @@ public class TestEdit {
                         "        └── Adobe\n", output);
     }
 
-    private static String[] getInputList() {
+    private static String[] getInputList1() {
         String input = "load test1.md\n" +
                 "insert ## 程序设计\n" +
                 "append-head # 我的资源\n" +
